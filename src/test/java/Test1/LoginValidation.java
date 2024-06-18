@@ -1,62 +1,60 @@
 package Test1;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import io.github.bonigarcia.wdm.WebDriverManager; // Import WebDriverManager
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.time.Duration;
 
 public class LoginValidation {
 
-    public static void main(String[] args) {
-        // Setup ChromeDriver using WebDriverManager
-        WebDriverManager.chromedriver().setup();
+    private WebDriver driver;
 
-        // Call the function to perform login validation
-        validateLogin();
+    @Before
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
-    public static void validateLogin() {
-        // Create a new instance of the Chrome driver
-        WebDriver driver = new ChromeDriver();
-
-        // Maximize the browser window
-        driver.manage().window().maximize();
-
+    @Test
+    public void validateLogin() throws InterruptedException {
         try {
-            // Navigate to the login page
             driver.get("http://localhost:3000");
 
-            // Enter username with delay
             WebElement usernameInput = driver.findElement(By.id("username"));
             usernameInput.sendKeys("admin");
-            Thread.sleep(1000); // Add delay of 1 second
+            Thread.sleep(1000);
 
-            // Enter password with delay
             WebElement passwordInput = driver.findElement(By.id("password"));
             passwordInput.sendKeys("password");
-            Thread.sleep(1000); // Add delay of 1 second
+            Thread.sleep(1000);
 
-            // Click on the login button with delay
             WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
             loginButton.click();
-            Thread.sleep(2000); // Add delay of 2 seconds
+            Thread.sleep(2000);
 
-            // Wait for the dashboard page to load (assuming it redirects to /dashboard) with explicit wait
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.urlContains("/dashboard"));
-            Thread.sleep(2000); // Add delay of 2 seconds
+            Thread.sleep(2000);
 
             System.out.println("Login successful!");
 
         } catch (Exception e) {
             System.err.println("Login failed: " + e.getMessage());
-        } finally {
-            // Close the browser window
+        }
+    }
+
+    @After
+    public void tearDown() {
+        if (driver != null) {
             driver.quit();
         }
     }
