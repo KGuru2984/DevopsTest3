@@ -10,5 +10,6 @@ class TestingClass1 {
 	void test() {
 	
 		 assertEquals(5, ClassTest1.sum(2, 3));
+		 System.out.println("Hello");
 	}
 }

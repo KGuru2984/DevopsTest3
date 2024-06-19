@@ -60,6 +60,12 @@
     <version>4.4.3</version>
     <scope>test</scope>
 </dependency>
+<!-- https://mvnrepository.com/artifact/com.browserstack/browserstack-local-java -->
+<dependency>
+    <groupId>com.browserstack</groupId>
+    <artifactId>browserstack-local-java</artifactId>
+    <version>1.1.1</version>
+</dependency>
 
   </dependencies>
 
@@ -83,6 +89,11 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
+            <configuration>
+                <includes>
+                    <include>**/*Test.java</include> <!-- Pattern to include your test classes -->
+                </includes>
+            </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
