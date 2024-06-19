@@ -55,10 +55,10 @@
 </dependency>
 <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
 <dependency>
-    <groupId>io.github.bonigarcia</groupId>
-    <artifactId>webdrivermanager</artifactId>
-    <version>4.4.3</version>
-    <scope>test</scope>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>5.8.0</version>
+        <scope>test</scope>
 </dependency>
 <!-- https://mvnrepository.com/artifact/com.browserstack/browserstack-local-java -->
 <dependency>
@@ -66,7 +66,11 @@
     <artifactId>browserstack-local-java</artifactId>
     <version>1.1.1</version>
 </dependency>
-
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.16.0</version> <!-- Example: Update to a compatible version -->
+</dependency>
   </dependencies>
 
   <build>
@@ -89,10 +93,13 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
-            <configuration>
+                  <configuration>
                 <includes>
-                    <include>**/*Test.java</include> <!-- Pattern to include your test classes -->
+                    <include>**/*.java</include>
                 </includes>
+                <testFailureIgnore>true</testFailureIgnore>
+                <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
             </configuration>
         </plugin>
         <plugin>
